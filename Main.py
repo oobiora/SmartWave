@@ -8,31 +8,31 @@ import os
 
 class SmartWave:
 
-    translatedFoodTemp = acquireTemp()
     
-    def acquireTemp():
-        inFile = openInputFile()
-        traslateDict = {}
-        for line in inFile:
-            translateDict[line[0]]=int(line[1])
-        return traslateDict.get(GrabData())
+###Broken###
+   # def openInputFile(): #precalled
+       # while not os.path.exists(foodtemps.csv):
+       #     print("File does not exist!")
+       # return open(foodtemps.csv, "r")
 
-    def openInputFile(): #precalled
-        while not os.path.exists(foodtemps.csv)
-            print(F"File does not exist!")
-        return open(foodtemps.csv, "r")
-        
-    
-
-    def GrabData: #precalled
+    def GrabData(): #precalled
         unorganizedData = DatacquireQRData()
         orgData = organizeData(unorganizedData)
         return food
 
-    def organizeData(uoData): #precalled
+    def organizeData(self,uoData): #precalled
         orgData = []
         sData = uoData.split(',')
         return sData[0]
+    
+    def acquireTemp():
+        inFile = open('foodtemps.csv','r')
+        translateDict = {}
+        for line in inFile:
+            translateDict[line[0]]=line[1]
+        return translateDict.get(self.GrabData())
+    
+    translatedFoodTemp = acquireTemp()
 
 def main():
 
