@@ -26,22 +26,22 @@ def startHeating(foodTemp): #Declare main class
 
 
         ###ALEXASTUFF####
-
+            ## SERVO CALL STUFF
 
         #################
 
-def isHeated(foodTemp):
+def isHeated(foodTemp): #Checks to see if the temperature of the food within the inner 9 sections is
     acc = 0
     for row in range(2,5):
         for x in range(2,5):
             temp = amg.pixels[row][x]
             acc += (temp*1.8)+32
     if acc/9 >= foodTemp:
-        return True
+        return True #returns true if food if average temperature is greater than temperature passed through
     else:
         return False
     
-def avgTemp():
+def avgTemp(): #aquires average temperature
     acc = 0
     for row in range(2,5):
         for x in range(2,5):
