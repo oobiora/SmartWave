@@ -11,11 +11,13 @@ import cv2
 
 
 def main(): #Main Function
-    data = GrabData() #Call to the Gab Data Func.
-    print(data)
-    temp = acquireTemp(data) #passes food into acquireTemp retrieves temp
-    temp = int(temp)
-    startHeating(temp) #Passes temp to startHeating func in Temp_Sense File
+    while True:
+        data = GrabData() #Call to the Gab Data Func.
+        print(data)
+        temp = acquireTemp(data) #passes food into acquireTemp retrieves temp
+        temp = int(temp)
+        startHeating(temp) #Passes temp to startHeating func in Temp_Sense File
+        time.sleep(10)
 
 def GrabData(): # Grabs Barcode data/food stand-in for (OR)
         unorganizedData = barcodeScanner() #Runs function within finalBarScanner
