@@ -4,39 +4,32 @@
 #Alexa Api integration
 
 from barcode_scanner_video import acquireQRData
+import Temp_Sense
 import os
 
 class SmartWave:
+    def __init__(self):
+        self.food = self.GrabData()
+        self.temp = self.acquireTemp()
+        
 
-    
-    foodName = self.GrabData()
-###Broken###
-   # def openInputFile(): #precalled
-       # while not os.path.exists(foodtemps.csv):
-       #     print("File does not exist!")
-       # return open(foodtemps.csv, "r")
-    @classmethod
     def GrabData(self,): #precalled
         unorganizedData = DatacquireQRData()
-        orgData = organizeData(unorganizedData)
+        oData = unorganizedData.split(',')
+        food = oData[0]
         return food, self
-    @classmethod
-    def organizeData(cls,uoData): #precalled
-        orgData = []
-        sData = uoData.split(',')
-        return sData[0], cls
-    @classmethod
-    def acquireTemp():
+
+    def acquireTemp(self,):
         inFile = open('foodtemps.csv','r')
         translateDict = {}
         for line in inFile:
             translateDict[line[0]]=line[1]
-        return translateDict.get(cls.foodName)
+        return translateDict.get(self.food)
     
     translatedFoodTemp = acquireTemp()
 
 def main():
 
     newWave = SmartWave()
-    newWave.translatedFoodTemp
+    newWave.temp
     print(newWave)
