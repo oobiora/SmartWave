@@ -2,18 +2,17 @@ import time
 import busio
 import board
 import adafruit_amg88xx
+from SerialTest import servoOn
+from SerialTest import servoOff
 
 i2c = busio.I2C(board.SCL, board.SDA)
 amg = adafruit_amg88xx.AMG88XX(i2c)
 
 def startHeating(foodTemp): #Declare main class
+    
+    servoOn()
 
-    ##ALEXA STUFF##
-
-    ###############
-
-
-    while not isHeated():  #Run Thermal Camera until correct temperature is reached
+    while not isHeated(foodTemp):  #Run Thermal Camera until correct temperature is reached
         for row in range(2,5):
             for x in range(2,5):
                 temp = amg.pixels[row][x]
@@ -22,7 +21,9 @@ def startHeating(foodTemp): #Declare main class
         print('\n',isHeated(foodTemp), avgTemp(),'\n')
         time.sleep(1)
     if isHeated(foodTemp):
+        servoOff()
         print("The temperature has been reached")
+        return 'good'
 
 
         ###ALEXASTUFF####
