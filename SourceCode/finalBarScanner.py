@@ -8,11 +8,11 @@ import cv2
 
 def barcodeScanner():
     ap = argparse.ArgumentParser()
-    ap.add_argument("-o","--output", type=str,default="barcode.csv",
+    ap.add_argument("-o","--output", type=str,default="barcode.csv",#creates a CSV of barcodes
                             help ="path to output... CSV file")
     args = vars(ap.parse_args())
 
-    print("[INFO] starting video stream...")
+    print("[INFO] starting video stream...") # prints starting for debugging
     vs = VideoStream(usePiCamera=True).start()
     time.sleep(2.0)
 
@@ -28,27 +28,27 @@ def barcodeScanner():
             (x, y, w, h) = barcode.rect
             cv2.rectangle(frame, (x,y), (x+w,y+h),(0,0,255), 2)
                 
-            barcodeData = barcode.data.decode('utf-8')
-            barcodeType = barcode.type
+            barcodeData = barcode.data.decode('utf-8') #decodes barcode data to utf-8 format (string)
+            barcodeType = barcode.type #barcode, QRCode etc.
                     
                 
-            text = "{}({})".format(barcodeData, barcodeType)
+            text = "{}({})".format(barcodeData, barcodeType) #formats barcode data 
             cv2.putText(frame,text,(x,y-10),cv2.FONT_HERSHEY_SIMPLEX,
                         0.5, (0,0,255),2)
                     
                 
             if barcodeData not in found:
                 csv.write("{},{}\n".format(datetime.datetime.now(),
-                                     barcodeData))
+                                     barcodeData))#when barcode is found
                 csv.flush()
-                found.add(barcodeData)
+                found.add(barcodeData)#adds barcode to found set
             if barcodeData in found:
-                decodedData = barcodeData.split(',')
-                print(decodedData[1], "temperature")
+                decodedData = barcodeData.split(',')#splits barcode
+                print(decodedData[1], "temperature")#prints temperature for debugging
                 csv.close()
-                cv2.destroyAllWindows()
+                cv2.destroyAllWindows() #turns of camera etc.
                 vs.stop()
-                return decodedData
+                return decodedData #passes barcode data
                         
                         
 
